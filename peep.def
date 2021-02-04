@@ -1,0 +1,11 @@
+replace {
+  call _SMS_crt0_RST18
+} by {
+  rst #0x0018
+}
+
+replace {
+  call _SMS_crt0_RST08
+} by {
+  rst #0x0008
+}

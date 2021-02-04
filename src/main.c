@@ -34,8 +34,8 @@ void write_string_at(char tile_x, char tile_y, char* string) {
 
     char *c = string;
 
-    while (*c) {
-        int next_tile = (*c++) | TEXT_ASCII_OFFSET_MASK;
+    do {
+        int next_tile = (*c) | TEXT_ASCII_OFFSET_MASK;
         SMS_setTile(next_tile);
-    }
+    } while (*++c);
 }
