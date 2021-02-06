@@ -1,28 +1,37 @@
 CC=sdcc
+CFLAGS=-c -mz80 --std-sdcc99
+LDFLAGS=-mz80 --no-std-crt0 --data-loc 0xC000
+LIBS=crt0/crt0_sms.rel lib/SMSlib.lib
 
-REL_FILES=out/main.rel out/bank2.rel
+# All .c files in the src/ directory
+SRC_FILES=$(wildcard src/*.c)
+
+# Map src/%.c to out/%.rel
+REL_FILES=$(SRC_FILES:src/%.c=out/%.rel)
 
 BANKS=-Wl-b_BANK2=0x8000
 
 $(shell mkdir -p out/)
 
 .PHONY: all
-all: assets game.sms
+all: assets
+all: REL_FILES += $(wildcard out/bank*.rel) # Add new bankX.rel files
+all: game.sms
 
 game.sms: out/game.ihx
 	ihx2sms out/game.ihx out/game.sms
 
 out/game.ihx: $(REL_FILES) assets
-	$(CC) -mz80 --no-std-crt0 --data-loc 0xC000 \
+	$(CC) $(LDFLAGS) \
 		-o out/game.ihx \
 		$(BANKS) \
 		--peep-file peep.def \
-		crt0/crt0_sms.rel $(REL_FILES) lib/SMSlib.lib
+		$(LIBS) $(REL_FILES)
 
-out/main.rel: src/main.c
-	$(CC) -mz80 -c --std-sdcc99 \
+out/%.rel: src/%.c
+	$(CC) $(CFLAGS) \
 		--peep-file peep.def \
-		src/main.c -o out/main.rel
+		$< -o $@
 
 .PHONY: assets
 assets:
