@@ -13,6 +13,11 @@ BANKS=-Wl-b_BANK2=0x8000
 
 $(shell mkdir -p out/)
 
+.PHONE: debug
+debug: CFLAGS += --debug
+debug: LDFLAGS += -Wl-y
+debug: all
+
 .PHONY: all
 all: assets
 all: REL_FILES += $(wildcard out/bank*.rel) # Add new bankX.rel files
