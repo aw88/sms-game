@@ -32,6 +32,7 @@ The "Attach to Emulicious" configuration can be used to attach to a running ROM.
 ## Acknowledgements
 
 * [DINOBYTE bitmap font](https://mby.itch.io/dinobyte) by [mby](https://mby.itch.io/)
+* [Nicer Nightie font](https://unfilledflag.itch.io/nicer-nightie) by [UnfilledFlag](https://unfilledflag.itch.io/)
 
 [alexw88/sms-toolchain]: https://github.com/aw88/sms-toolchain
 [Calindro/emulicious-debugger]: https://github.com/Calindro/emulicious-debugger
