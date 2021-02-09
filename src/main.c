@@ -1,5 +1,6 @@
 #include "stdint.h"
 #include "SMSlib.h"
+#include "vdp.h"
 #include "title.h"
 #include "../out/bank2.h"
 
@@ -15,14 +16,14 @@ const uint8_t palette[] = {
 void write_string_at(uint8_t tile_x, uint8_t tile_y, uint8_t* string);
 
 void main(void) {
-    SMS_init();
+    VDP_clear_vram();
 
     SMS_loadBGPalette(palette);
     SMS_loadTiles(font, 0xA0, font_size);
 
     do_title();
 
-    SMS_VRAMmemset(0, 0, 0x4000);
+    VDP_clear_vram();
     SMS_loadBGPalette(palette);
     SMS_loadTiles(font, 0xA0, font_size);
     write_string_at(10, 16, "Hello, world!");
