@@ -2,6 +2,7 @@
 #include "SMSlib.h"
 #include "vdp.h"
 #include "title.h"
+#include "overworld.h"
 #include "../out/bank2.h"
 
 #include "rom_header.h"
@@ -22,6 +23,8 @@ void main(void) {
     SMS_loadTiles(font, 0xA0, font_size);
 
     do_title();
+
+    do_overworld();
 
     VDP_clear_vram();
     SMS_loadBGPalette(palette);
