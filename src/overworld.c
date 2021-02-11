@@ -1,10 +1,12 @@
 #include "SMSlib.h"
 #include "overworld.h"
 
-#include "../out/bank2.h"
+#include "../out/assets.h"
 
 void overworld_init(void) {
+  SMS_mapROMBank(sprites_pal_bank);
   SMS_loadSpritePalette(sprites_pal);
+  SMS_mapROMBank(sprites_bank);
   SMS_loadTiles(sprites, 0x100, sprites_size);
 }
 

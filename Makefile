@@ -9,7 +9,7 @@ SRC_FILES=$(wildcard src/*.c)
 # Map src/%.c to out/%.rel
 REL_FILES=$(SRC_FILES:src/%.c=out/%.rel)
 
-BANKS=-Wl-b_BANK2=0x8000
+BANKS=
 
 $(shell mkdir -p out/)
 
@@ -20,7 +20,9 @@ debug: all
 
 .PHONY: all
 all: assets
-all: REL_FILES += $(wildcard out/bank*.rel) # Add new bankX.rel files
+all: BANK_RELS=$(wildcard out/bank*.rel) # Add new bankX.rel files
+all: REL_FILES += $(BANK_RELS)
+all: BANKS=$(BANK_RELS:out/bank%.rel=-Wl-b_BANK%=0x8000)
 all: game.sms
 
 game.sms: out/game.ihx
@@ -40,8 +42,9 @@ out/%.rel: src/%.c
 
 .PHONY: assets
 assets:
-	assets2banks ./assets --compile
-	mv bank*.h bank*.rel out/
+	assets2banks ./assets --compile --singleheader
+	mv bank*.rel out/
+	mv assets2banks.h out/assets.h
 
 .PHONY: clean
 clean:

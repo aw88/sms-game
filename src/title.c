@@ -4,10 +4,12 @@
 #include "dialog.h"
 #include "title.h"
 
-#include "../out/bank2.h"
+#include "../out/assets.h"
 
 void title_init(void) {
   SMS_displayOff();
+
+  SMS_mapROMBank(title_bank);
   SMS_loadTiles(title, 0x10, title_size);
 
   uint16_t t = 0x0010;

@@ -3,7 +3,7 @@
 #include "vdp.h"
 #include "title.h"
 #include "overworld.h"
-#include "../out/bank2.h"
+#include "../out/assets.h"
 
 #include "rom_header.h"
 
@@ -20,6 +20,7 @@ void main(void) {
     VDP_clear_vram();
 
     SMS_loadBGPalette(palette);
+    SMS_mapROMBank(font_bank);
     SMS_loadTiles(font, 0xA0, font_size);
 
     do_title();
